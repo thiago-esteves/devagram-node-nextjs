@@ -1,6 +1,8 @@
 import type { NextApiRequest,NextApiResponse } from "next";
 
-export default (
+import {conectarMongoDB} from '../middlewares/conectarMongoDB';
+
+export const endpointLogin = (
 
     req: NextApiRequest,
     res: NextApiResponse
@@ -10,11 +12,15 @@ export default (
 
         if (login ==='admin@admin.com' && 
            senha ==='Admin@123'){
-               res.status(200).json({msg: 'Usuario autenticado com sucesso'});
+            return  res.status(200).json({msg: 'Usuario autenticado com sucesso'});
 
         }
         return res.status(400).json({erro: 'Usuario ou senha nao encontrado'});
     
     }
     return res.status(405).json({erro: ' metodo informado nao e valido'});
+
+    
 }
+
+export default conectarMongoDB(endpointLogin);
